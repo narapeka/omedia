@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  omedia:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: omedia
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      - omedia_data:/data
+      # Optional: mount local media paths
+      # - /path/to/local/media:/media:ro
+    environment:
+      # LLM Configuration (OpenAI-compatible)
+      - LLM_API_KEY=${LLM_API_KEY:-}
+      - LLM_BASE_URL=${LLM_BASE_URL:-}
+      - LLM_MODEL=${LLM_MODEL:-gpt-4o-mini}
+      
+      # TMDB Configuration
+      - TMDB_API_KEY=${TMDB_API_KEY:-}
+      
+      # 115 Cloud Configuration
+      - P115_COOKIES=${P115_COOKIES:-}
+      
+      # Storage paths (JSON arrays)
+      - STORAGE_LOCAL_MEDIA_PATHS=${STORAGE_LOCAL_MEDIA_PATHS:-[]}
+      - P115_SHARE_RECEIVE_PATHS=${P115_SHARE_RECEIVE_PATHS:-[]}
+      
+      # WebDAV Configuration (optional)
+      - STORAGE_WEBDAV_URL=${STORAGE_WEBDAV_URL:-}
+      - STORAGE_WEBDAV_USERNAME=${STORAGE_WEBDAV_USERNAME:-}
+      - STORAGE_WEBDAV_PASSWORD=${STORAGE_WEBDAV_PASSWORD:-}
+      
+      # Proxy Configuration (optional)
+      - PROXY_HOST=${PROXY_HOST:-}
+      - PROXY_PORT=${PROXY_PORT:-}
+      
+      # Application settings
+      - DEBUG=${DEBUG:-false}
+      - SECRET_KEY=${SECRET_KEY:-change-me-in-production}
+
+volumes:
+  omedia_data:
+
