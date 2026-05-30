@@ -1,0 +1,13 @@
+TV show name:
+{{SHOW_NAME}}
+
+TMDB episode context:
+{{TMDB_CONTEXT}}
+
+If no TMDB episode context is available, this field may be empty or say
+"not available".
+
+Input file keys:
+{{FILENAMES_JSON}}
+
+Return exactly one JSON object with an "items" array.

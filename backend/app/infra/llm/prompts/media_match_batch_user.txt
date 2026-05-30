@@ -1,0 +1,13 @@
+Extract media identity hints from these source candidates:
+
+{{INPUT_JSON}}
+
+Return exactly one JSON object with an "items" array. Each item must use this
+schema:
+{
+  "candidate_id": "exact input candidate_id",
+  "chinese_title": string or null,
+  "english_title": string or null,
+  "year": integer or null,
+  "tmdb_id": integer or null
+}

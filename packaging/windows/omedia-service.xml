@@ -1,0 +1,15 @@
+<service>
+  <id>omedia</id>
+  <name>omedia</name>
+  <description>OMEDIA local media organizer web service.</description>
+  <executable>%BASE%\omedia.exe</executable>
+  <env name="OMEDIA_DATA_DIR" value="%ProgramData%\omedia\data" />
+  <env name="OMEDIA_HOST" value="127.0.0.1" />
+  <env name="OMEDIA_PORT" value="7108" />
+  <logpath>%ProgramData%\omedia\logs\service</logpath>
+  <log mode="roll-by-size">
+    <sizeThreshold>10485760</sizeThreshold>
+    <keepFiles>5</keepFiles>
+  </log>
+  <onfailure action="restart" delay="10 sec" />
+</service>

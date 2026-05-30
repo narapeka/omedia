@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "omedia-backend"
+version = "0.1.0"
+description = "Backend, CLI, watcher, and automation services for the modern media organizer."
+requires-python = ">=3.11"
+dependencies = [
+    "alembic>=1.18",
+    "fastapi>=0.136",
+    "opencc-python-reimplemented>=0.1.7",
+    "pypinyin>=0.55",
+    "PyYAML>=6.0",
+    "SQLAlchemy>=2.0",
+    "uvicorn[standard]>=0.46",
+    "watchfiles>=1.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "httpx>=0.28",
+    "pytest>=8.0",
+]
+package = [
+    "pyinstaller>=6.0",
+]
+
+[project.scripts]
+omedia = "app.api.cli.main:main"
+omedia-server = "app.server:main"
+
+[tool.setuptools.packages.find]
+include = ["app*"]
+
+[tool.setuptools.package-data]
+"app.infra.llm" = ["prompts/*.txt"]
+
+[tool.pytest.ini_options]
+cache_dir = "../.temp/pytest-cache"

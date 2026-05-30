@@ -1,0 +1,77 @@
+# Codex/local agent state
+.codex/
+
+# design documents and specifications
+/docs/
+/openspec/
+
+# Project scratch space for dev runners, caches, logs, pids, and package metadata
+.temp/
+.tmp-run/
+.tmp-tests/
+.run-logs/
+
+# Local runtime configuration and state
+data/common.yaml
+data/*.local.yaml
+data/*.local.yml
+data/*.local.json
+data/logs/
+data/*.db
+data/*.db-*
+data/*.sqlite
+data/*.sqlite-*
+data/*.sqlite3
+data/*.sqlite3-*
+
+# Local secrets and environment files
+.env
+.env.*
+!.env.example
+backend/.env
+backend/.env.*
+!backend/.env.example
+frontend/.env
+frontend/.env.*
+!frontend/.env.example
+
+# Logs outside the managed .temp/data locations
+*.log
+logs/
+
+# Python generated files and local tooling caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.uv-cache/
+.venv/
+venv/
+htmlcov/
+.coverage
+
+# Python packaging/build artifacts
+*.egg-info/
+build/
+dist/
+
+# Frontend dependencies, build output, and generated test output
+frontend/node_modules/
+frontend/dist/
+frontend/dist-ssr/
+frontend/.vite/
+frontend/coverage/
+frontend/playwright-report/
+frontend/test-results/
+frontend/tests/.results/
+frontend/tsconfig.tsbuildinfo
+frontend/vitest-results.json
+frontend/data/
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

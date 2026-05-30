@@ -1,0 +1,11 @@
+Extract media identity hints from this source candidate:
+
+{{INPUT_JSON}}
+
+Return exactly one JSON object using this schema:
+{
+  "chinese_title": string or null,
+  "english_title": string or null,
+  "year": integer or null,
+  "tmdb_id": integer or null
+}
