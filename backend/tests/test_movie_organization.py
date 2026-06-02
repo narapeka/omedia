@@ -301,7 +301,7 @@ class MovieOrganizationTests(unittest.TestCase):
         )
         self.assertEqual(
             tokenized.relative_path,
-            Path("Avatar (2009) {tmdb-19995}/Avatar (2009) - Cut_One.mkv"),
+            Path("Avatar (2009) {tmdb-19995}/Avatar (2009) - Cut.One.mkv"),
         )
         self.assertIn("movie_part_token_sanitized", tokenized.warnings)
 

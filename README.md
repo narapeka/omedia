@@ -32,8 +32,13 @@ Windows 版本默认把运行数据保存在 `%ProgramData%\omedia\data`。
 
 ### Docker Run
 
-```powershell
-docker run -p 7108:7108 -v ${PWD}\data:/data docker.io/narapeka/omedia:vX.Y.Z
+```bash
+docker run \
+  --restart unless-stopped \
+  -p 7108:7108 \
+  -v /docker/omedia/data:/data \
+  -v /mnt/media:/media \
+  narapeka/omedia:latest
 ```
 
 `/data` 用于保存 OMEDIA 配置、SQLite 数据库和日志。媒体目录需要按实际路径额外挂载。
@@ -43,13 +48,13 @@ docker run -p 7108:7108 -v ${PWD}\data:/data docker.io/narapeka/omedia:vX.Y.Z
 ```yaml
 services:
   omedia:
-    image: docker.io/narapeka/omedia:vX.Y.Z
+    image: narapeka/omedia:latest
     container_name: omedia
     ports:
       - "7108:7108"
     volumes:
-      - ./data:/data
-      - "D:/Media:/media"
+      - /docker/omedia/data:/data
+      - /mnt/media:/media
     restart: unless-stopped
 ```
 

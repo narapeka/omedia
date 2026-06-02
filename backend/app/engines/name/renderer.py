@@ -98,7 +98,7 @@ def _title_with_year(title: str, year: int | None) -> str:
 
 def _clean_component(label: str, value: str | None, warnings: list[str]) -> str:
     raw = value or "Untitled"
-    cleaned = sanitize_filename_component(str(raw), replacement="_")
+    cleaned = sanitize_filename_component(str(raw), replacement=".")
     if cleaned != raw:
         warnings.append(f"{label}_sanitized")
     return cleaned

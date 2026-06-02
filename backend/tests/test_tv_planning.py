@@ -123,9 +123,9 @@ class TVPlanningTests(unittest.TestCase):
         )
 
         self.assertEqual(tag.raw_tag, "UHD")
-        self.assertEqual(rendered.relative_path.parts[0], "Example_ Show (2020) {tmdb-123} [UHD]")
+        self.assertEqual(rendered.relative_path.parts[0], "Example. Show (2020) {tmdb-123} [UHD]")
         self.assertEqual(rendered.relative_path.parts[1], "Specials")
-        self.assertEqual(rendered.relative_path.name, "Example_ Show - S00E01-E02 - Pilot_ Part 1-Pilot_ Part 2.mkv")
+        self.assertEqual(rendered.relative_path.name, "Example. Show - S00E01-E02 - Pilot. Part 1-Pilot. Part 2.mkv")
 
     def test_subtitle_sidecar_plans_beside_episode(self) -> None:
         show = TVShowIdentity("Example", title="Example", year=2020, tmdb_id=1)
