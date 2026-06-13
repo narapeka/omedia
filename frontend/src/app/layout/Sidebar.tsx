@@ -13,9 +13,8 @@ import { cn } from '@/lib/utils'
 type NavTo = '/dashboard' | '/organize' | '/services' | '/transfer' | '/activity' | '/settings'
 type NavItem = { to: NavTo; labelKey: MessageKey; icon: LucideIcon }
 
-const navItemClass =
-  'flex min-h-12 w-full items-center gap-3 rounded-lg px-3 py-2.5 text-base font-medium leading-6 text-muted-foreground transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground data-[active=true]:bg-sidebar-accent data-[active=true]:text-sidebar-accent-foreground'
-const navIconClass = 'size-7 shrink-0 stroke-[1.8]'
+const navItemClass = 'omedia-nav-item'
+const navIconClass = 'size-6 shrink-0 stroke-[1.6]'
 const languageOptions: { value: Locale; labelKey: MessageKey; shortLabel: string }[] = [
   { value: 'zh-CN', labelKey: 'languageChinese', shortLabel: 'ZH' },
   { value: 'en-US', labelKey: 'languageEnglish', shortLabel: 'EN' },
@@ -38,8 +37,9 @@ export function Sidebar() {
   const { t } = useI18n()
 
   return (
-    <aside className="flex h-auto flex-col gap-5 border-b bg-sidebar p-4 text-sidebar-foreground md:sticky md:top-0 md:h-screen md:border-b-0 md:border-r">
-      <div className="flex min-h-12 items-center px-3 pt-2 pb-5" aria-label={t('appName')}>
+    <aside className="flex h-auto flex-col bg-sidebar py-0 text-sidebar-foreground md:sticky md:top-0 md:h-screen">
+      <div className="flex min-h-16 items-center gap-[0.9rem] py-4 pr-1 pl-[1.375rem]" aria-label={t('appName')}>
+        <img alt="" className="size-9 shrink-0" src="/logo.svg" />
         <span className="omedia-wordmark">OMEDIA</span>
       </div>
       <SidebarNavigation currentPath={location.pathname} />
@@ -67,13 +67,15 @@ export function MobileNavigation() {
         >
           <Menu className="size-[1.375rem]" />
         </Button>
+        <img alt="" className="size-8 shrink-0" src="/logo.svg" />
         <span className="omedia-wordmark">OMEDIA</span>
       </header>
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="top-0 left-0 flex h-dvh w-[min(20rem,calc(100vw-2rem))] max-w-none translate-x-0 translate-y-0 flex-col gap-5 overflow-y-auto rounded-none rounded-r-xl bg-sidebar p-4 text-sidebar-foreground sm:max-w-none">
+        <DialogContent className="top-0 left-0 flex h-dvh w-[min(16.25rem,calc(100vw-2rem))] max-w-none translate-x-0 translate-y-0 flex-col overflow-y-auto rounded-none rounded-r-xl bg-sidebar p-0 py-0 text-sidebar-foreground sm:max-w-none">
           <DialogTitle className="sr-only">{t('navPrimaryWorkflows')}</DialogTitle>
           <DialogDescription className="sr-only">{menuLabel}</DialogDescription>
-          <div className="flex min-h-12 items-center px-3 pt-2 pb-5" aria-label={t('appName')}>
+          <div className="flex min-h-16 items-center gap-[0.9rem] py-4 pr-1 pl-[1.375rem]" aria-label={t('appName')}>
+            <img alt="" className="size-9 shrink-0" src="/logo.svg" />
             <span className="omedia-wordmark">OMEDIA</span>
           </div>
           <SidebarNavigation currentPath={location.pathname} onNavigate={closeMenu} />
@@ -88,7 +90,7 @@ function SidebarNavigation({ currentPath, onNavigate }: { currentPath: string; o
   const { t } = useI18n()
 
   return (
-    <nav className="flex flex-col gap-4" aria-label={t('navPrimaryWorkflows')}>
+    <nav className="flex flex-col" aria-label={t('navPrimaryWorkflows')}>
       <NavSection title={t('navPrimaryWorkflows')} items={primaryNavItems} currentPath={currentPath} onNavigate={onNavigate} />
       <NavSection title={t('navSecondaryDestinations')} items={secondaryNavItems} currentPath={currentPath} onNavigate={onNavigate} />
     </nav>
@@ -99,7 +101,7 @@ function SidebarFooter({ currentPath, onNavigate }: { currentPath: string; onNav
   const { t } = useI18n()
 
   return (
-    <div className="mt-auto flex items-center justify-between gap-3 border-t px-3 pt-4">
+    <div className="mt-auto flex items-center justify-between gap-3 border-t py-3 pr-[1.125rem] pl-[1.375rem]">
       <LanguageSwitcher />
       <HelpButton active={currentPath === '/help'} label={t('getHelp')} onNavigate={onNavigate} />
     </div>
@@ -138,8 +140,10 @@ function LanguageSwitcher() {
 function NavSection({ title, items, currentPath, onNavigate }: { title: string; items: NavItem[]; currentPath: string; onNavigate?: () => void }) {
   const { t } = useI18n()
   return (
-    <div className="flex flex-col gap-2">
-      <div className="px-3 text-[0.8rem] font-extrabold uppercase leading-5 tracking-normal text-muted-foreground">{title}</div>
+    <div className="flex flex-col">
+      <div className="omedia-nav-section-title">
+        <span className="title-text">{title}</span>
+      </div>
       {items.map((item) => (
         <NavLink
           key={item.to}

@@ -47,38 +47,40 @@
 
 :root {
   color-scheme: dark;
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
-  --radius: 0.625rem;
+  /* Palette and metrics ported from MoviePilot's Materio "purple" theme. */
+  --background: #28243d;
+  --foreground: #e7e3fcde; /* on-background at high emphasis (87%) */
+  --card: #312d4b;
+  --card-foreground: #e7e3fcde;
+  --popover: #312d4b;
+  --popover-foreground: #e7e3fcde;
+  --primary: #9155fd;
+  --primary-foreground: #ffffff;
+  --secondary: #3d3759;
+  --secondary-foreground: #e7e3fcde;
+  --muted: #3d3759;
+  --muted-foreground: #e7e3fc99; /* medium emphasis (60%) */
+  --accent: #3d3759;
+  --accent-foreground: #e7e3fcde;
+  --destructive: #ff4c51;
+  --border: #e7e3fc1f; /* border-color at 12% */
+  --input: #e7e3fc61; /* Vuetify outlined field border (38%) */
+  --ring: #9155fd;
+  --chart-1: #9155fd;
+  --chart-2: #16b1ff;
+  --chart-3: #56ca00;
+  --chart-4: #ffb400;
+  --chart-5: #ff4c51;
+  --sidebar: #28243d; /* Materio vertical nav uses the background color */
+  --sidebar-foreground: #e7e3fcde;
+  --sidebar-primary: #9155fd;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #e7e3fc0a; /* hover overlay (4%) */
+  --sidebar-accent-foreground: #e7e3fcde;
+  --sidebar-border: #e7e3fc1f;
+  --sidebar-ring: #9155fd;
+  --radius: 0.5rem; /* root 6px scale: md 6px, lg 8px, xl 12px (Vuetify rounded-lg) */
+  --materio-elevation-3: 0 4px 14px -4px rgb(20 18 33 / 8%), 0 4px 8px -4px rgb(20 18 33 / 12%), 0 4px 8px -4px rgb(20 18 33 / 4%);
 }
 
 @layer base {
@@ -93,7 +95,7 @@
   body {
     @apply bg-background text-foreground;
     margin: 0;
-    letter-spacing: 0;
+    letter-spacing: 0.15px; /* Materio body-1 letter spacing */
   }
 
   input[data-slot="input"]:is(:-webkit-autofill, :autofill),
@@ -125,63 +127,118 @@ code {
   font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
 }
 
+/* Matches MoviePilot's nav-header app title: plain high-emphasis uppercase wordmark. */
 .omedia-wordmark {
-  position: relative;
   display: inline-flex;
   align-items: center;
   width: max-content;
   font-family: var(--font-heading);
-  font-size: 1.65rem;
-  font-weight: 850;
+  font-size: 1.375rem;
+  font-weight: 700;
   line-height: 1;
-  letter-spacing: 0;
-  color: transparent;
+  letter-spacing: 0.15px;
+  color: var(--foreground);
   text-transform: uppercase;
-  background: linear-gradient(112deg, oklch(0.99 0.004 255) 0%, oklch(0.73 0.018 250) 27%, oklch(0.96 0.012 245) 46%, oklch(0.53 0.04 258) 74%, oklch(0.78 0.075 260) 100%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  text-shadow: 0 0 18px oklch(0.66 0.06 255 / 20%);
 }
 
-.omedia-wordmark::after {
-  position: absolute;
-  right: 0.04em;
-  bottom: -0.42rem;
-  left: 0.04em;
-  height: 2px;
-  border-radius: 999px;
+/* Materio vertical-nav item: flush left, right-side pill, 42px tall. */
+.omedia-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  block-size: 2.625rem;
+  margin-block: 0 0.375rem;
+  margin-inline: 0 1.125rem;
+  padding-block: 0;
+  padding-inline: 1.375rem 1rem;
+  border-end-end-radius: 3.125rem;
+  border-start-end-radius: 3.125rem;
+  font-size: 0.9375rem;
+  letter-spacing: 0.15px;
+  color: var(--sidebar-foreground);
+  white-space: nowrap;
+  transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
+}
+
+.omedia-nav-item:not([data-active="true"]):hover {
+  background-color: rgb(231 227 252 / 4%);
+}
+
+.omedia-nav-item[data-active="true"] {
+  background: linear-gradient(270deg, var(--primary) 0%, #fff 300%);
+  box-shadow: var(--materio-elevation-3);
+  color: #fff;
+}
+
+/* Materio nav section title with leading/trailing rule lines. */
+.omedia-nav-section-title {
+  display: block;
+  overflow: hidden;
+  block-size: 1.5rem;
+  margin-block: 1.5rem 0.5rem;
+  margin-inline: 0 1.125rem;
+  padding-inline: 1.375rem 1rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.4px;
+  color: rgb(231 227 252 / 38%);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.omedia-nav-section-title:first-child {
+  margin-block-start: 0.25rem;
+}
+
+.omedia-nav-section-title > .title-text {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  column-gap: 0.625rem;
+  block-size: 100%;
+}
+
+.omedia-nav-section-title > .title-text::before,
+.omedia-nav-section-title > .title-text::after {
+  border-block-end: 1px solid var(--sidebar-border);
   content: "";
-  background: linear-gradient(90deg, oklch(0.98 0.006 250), oklch(0.7 0.04 255), oklch(0.42 0.04 260 / 0));
-  box-shadow: 0 0 12px oklch(0.72 0.05 255 / 18%);
-  opacity: 0.9;
+}
+
+.omedia-nav-section-title > .title-text::before {
+  flex: 0 1 0.75rem;
+  margin-inline-start: -1.375rem;
+}
+
+.omedia-nav-section-title > .title-text::after {
+  flex: 1 1 auto;
 }
 
 .omedia-metal-accent {
-  background-color: oklch(0.58 0.012 255 / 78%);
+  background-color: oklch(0.58 0.04 292 / 78%);
 }
 
 .omedia-page-actions [data-slot="button"] {
-  color: oklch(0.82 0.035 255);
-  background-color: oklch(0.72 0.025 255 / 9%);
-  border-color: oklch(0.78 0.025 255 / 24%);
+  color: oklch(0.82 0.06 292);
+  background-color: oklch(0.72 0.06 292 / 10%);
+  border-color: oklch(0.78 0.06 292 / 26%);
 }
 
 .omedia-page-actions [data-slot="button"]:hover {
-  color: oklch(0.91 0.025 250);
-  background-color: oklch(0.76 0.028 255 / 13%);
-  border-color: oklch(0.84 0.025 255 / 34%);
+  color: oklch(0.91 0.05 292);
+  background-color: oklch(0.76 0.06 292 / 14%);
+  border-color: oklch(0.84 0.06 292 / 36%);
 }
 
 .omedia-backup-action[data-slot="button"] {
-  color: oklch(0.86 0.08 164);
-  background-color: oklch(0.84 0.1 164 / 11%);
-  border-color: oklch(0.84 0.1 164 / 28%);
+  color: oklch(0.86 0.16 135);
+  background-color: oklch(0.78 0.18 135 / 11%);
+  border-color: oklch(0.78 0.18 135 / 28%);
 }
 
 .omedia-backup-action[data-slot="button"]:hover {
-  color: oklch(0.91 0.08 164);
-  background-color: oklch(0.84 0.1 164 / 16%);
-  border-color: oklch(0.84 0.1 164 / 38%);
+  color: oklch(0.91 0.16 135);
+  background-color: oklch(0.78 0.18 135 / 16%);
+  border-color: oklch(0.78 0.18 135 / 38%);
 }
 
 .omedia-indeterminate-progress {
@@ -263,7 +320,7 @@ code {
 
 .app-shell {
   display: grid;
-  grid-template-columns: 272px minmax(0, 1fr);
+  grid-template-columns: 16.25rem minmax(0, 1fr);
   min-height: 100vh;
   background: var(--background);
 }
@@ -271,18 +328,18 @@ code {
 .app-main {
   min-width: 0;
   overflow: auto;
-  padding: 20px;
+  padding: 1.5rem;
 }
 
 @media (max-width: 1180px) {
   .app-shell {
-    grid-template-columns: 240px minmax(0, 1fr);
+    grid-template-columns: 15rem minmax(0, 1fr);
   }
 }
 
 @media (max-width: 760px) {
   .omedia-wordmark {
-    font-size: 1.4rem;
+    font-size: 1.25rem;
   }
 
   .app-shell {

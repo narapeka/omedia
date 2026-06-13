@@ -1,6 +1,33 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="14" fill="#0f1115"/>
-  <rect x="15" y="19" width="34" height="29" rx="5" fill="none" stroke="#f4f7fb" stroke-width="4"/>
-  <path d="M18 27h28M22 19l7 8M35 19l7 8" stroke="#f4f7fb" stroke-width="4" stroke-linecap="round"/>
-  <circle cx="32" cy="37" r="5" fill="#20c7bd"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192">
+  <defs>
+    <linearGradient id="omedia-fav-blade" x1="0.9" y1="0.1" x2="0.1" y2="0.9">
+      <stop offset="0" stop-color="#C9A7FF"/>
+      <stop offset="0.45" stop-color="#9155FD"/>
+      <stop offset="1" stop-color="#6E2BD9"/>
+    </linearGradient>
+    <radialGradient id="omedia-fav-hub" cx="0.35" cy="0.3" r="1">
+      <stop offset="0" stop-color="#D3BBFF"/>
+      <stop offset="1" stop-color="#9155FD"/>
+    </radialGradient>
+    <path id="omedia-fav-blade-shape"
+          d="M 174 96
+             A 80 80 0 0 1 61 156.62
+             A 4 4 0 0 1 65 149.69
+             A 60 60 0 0 0 142 96
+             A 16 16 0 0 1 174 96
+             Z"/>
+    <clipPath id="omedia-fav-head-clip">
+      <polygon points="96,96 277,11.5 237,237"/>
+    </clipPath>
+  </defs>
+
+  <rect width="192" height="192" rx="42" fill="#28243D"/>
+
+  <g transform="translate(96 96) scale(0.8) translate(-96 -96)">
+    <use href="#omedia-fav-blade-shape" fill="url(#omedia-fav-blade)"/>
+    <use href="#omedia-fav-blade-shape" fill="url(#omedia-fav-blade)" transform="rotate(120 96 96)"/>
+    <use href="#omedia-fav-blade-shape" fill="url(#omedia-fav-blade)" transform="rotate(240 96 96)"/>
+    <use href="#omedia-fav-blade-shape" fill="url(#omedia-fav-blade)" clip-path="url(#omedia-fav-head-clip)"/>
+    <circle cx="96" cy="96" r="14" fill="url(#omedia-fav-hub)"/>
+  </g>
 </svg>

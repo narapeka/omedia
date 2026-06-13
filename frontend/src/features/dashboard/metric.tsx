@@ -23,7 +23,7 @@ export function ConfigMetric({
     <Link
       aria-label={t('openLabel', { label })}
       className={cn(
-        'relative rounded-lg border bg-card px-2.5 py-2.5 transition-all hover:-translate-y-0.5 hover:border-primary/50 hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:px-4 sm:py-3',
+        'relative rounded-xl border border-transparent bg-card px-2.5 py-2.5 transition-all hover:-translate-y-0.5 hover:border-primary/50 hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:px-4 sm:py-3',
         badge ? 'pr-16 sm:pr-32' : '',
         className,
       )}
