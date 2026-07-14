@@ -26,6 +26,7 @@ test('Dashboard surfaces real attention and primary navigation hides depot and R
 })
 
 test('Directory picker keeps its actions visible on desktop and mobile', async ({ page }) => {
+  const longDirectoryName = `[HK]${'The.Blade.1995.UHD.REMUX.Dolby.Vision.TrueHD7.1.Atmos.'.repeat(4)}{tmdb-36557}`
   await page.setViewportSize({ width: 1440, height: 900 })
   await page.route('**/api/inventory/directories**', async (route) => {
     await route.fulfill({
@@ -33,8 +34,8 @@ test('Directory picker keeps its actions visible on desktop and mobile', async (
         path: 'D:/media/return',
         parent_path: 'D:/media',
         entries: Array.from({ length: 24 }, (_, index) => ({
-          name: `directory-${index + 1}`,
-          path: `D:/media/return/directory-${index + 1}`,
+          name: `${index + 1}.${longDirectoryName}`,
+          path: `D:/media/return/${index + 1}.${longDirectoryName}`,
           modified_time: 1777675200,
           blocked_reason: null,
         })),
@@ -50,16 +51,20 @@ test('Directory picker keeps its actions visible on desktop and mobile', async (
   const picker = page.getByRole('dialog', { name: 'Choose Depot path' })
   const cancel = picker.getByRole('button', { name: 'Cancel' })
   const confirm = picker.getByRole('button', { name: 'Use as Depot path' })
+  const firstDirectoryName = picker.getByTitle(`D:/media/return/1.${longDirectoryName}`)
   await expect(cancel).toBeVisible()
   await expect(confirm).toBeVisible()
   await expect(cancel).toBeInViewport({ ratio: 1 })
   await expect(confirm).toBeInViewport({ ratio: 1 })
+  await expect(firstDirectoryName).toHaveCSS('text-overflow', 'ellipsis')
+  await expect.poll(() => firstDirectoryName.evaluate((element) => element.scrollWidth > element.clientWidth)).toBe(true)
 
   await page.setViewportSize({ width: 390, height: 844 })
   await expect(cancel).toBeVisible()
   await expect(confirm).toBeVisible()
   await expect(cancel).toBeInViewport({ ratio: 1 })
   await expect(confirm).toBeInViewport({ ratio: 1 })
+  await expect.poll(() => firstDirectoryName.evaluate((element) => element.scrollWidth > element.clientWidth)).toBe(true)
 })
 
 test('Settings manages Origins, Depots, and Watch configuration without synthetic grouping', async ({ page }) => {

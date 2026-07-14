@@ -44,7 +44,7 @@ export function DirectoryPickerDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="h-[min(90dvh,48rem)] grid-rows-[auto_minmax(0,1fr)_auto] overflow-hidden sm:max-w-2xl">
+      <DialogContent className="h-[min(90dvh,48rem)] min-w-0 grid-cols-[minmax(0,1fr)] grid-rows-[auto_minmax(0,1fr)_auto] overflow-hidden sm:max-w-2xl">
         <DialogHeader>
           <DialogTitle>{title ?? t('chooseFolder')}</DialogTitle>
           <DialogDescription className={description === null ? 'sr-only' : undefined}>
@@ -52,14 +52,14 @@ export function DirectoryPickerDialog({
           </DialogDescription>
         </DialogHeader>
 
-        <div className="flex min-h-0 flex-col gap-3">
+        <div className="flex min-h-0 min-w-0 flex-col gap-3 overflow-hidden">
           <DirectoryBreadcrumb path={activePath} segments={breadcrumbs} loading={listing.isFetching} onNavigate={setCurrentPath} />
 
           {listing.isLoading || listing.isFetching ? <div className="py-3 text-sm text-muted-foreground">{t('loadingFolders')}</div> : null}
           {listing.error ? <div className="text-sm text-destructive">{errorMessage(listing.error, t('couldNotLoadFolders'))}</div> : null}
           {listing.data?.error ? <div className="text-sm text-destructive">{listing.data.error}</div> : null}
 
-          <div className="min-h-0 overflow-y-auto overflow-x-hidden rounded-md border">
+          <div className="min-h-0 w-full min-w-0 max-w-full overflow-y-auto overflow-x-hidden rounded-md border">
             {(listing.data?.entries ?? []).map((entry) => (
               <button
                 key={entry.path}
@@ -107,8 +107,8 @@ function DirectoryBreadcrumb({
 }) {
   const { t } = useI18n()
   return (
-    <Breadcrumb aria-label={t('directoryPath')} className="rounded-md border bg-muted/20 px-3 py-2">
-      <BreadcrumbList className="flex-nowrap overflow-x-auto">
+    <Breadcrumb aria-label={t('directoryPath')} className="min-w-0 overflow-hidden rounded-md border bg-muted/20 px-3 py-2">
+      <BreadcrumbList className="max-w-full flex-nowrap overflow-x-auto">
         <BreadcrumbItem>
           {path ? (
             <BreadcrumbLink asChild>
