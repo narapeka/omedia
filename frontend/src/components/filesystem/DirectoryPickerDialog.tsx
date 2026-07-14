@@ -44,7 +44,7 @@ export function DirectoryPickerDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-h-[90vh] grid-rows-[auto_minmax(0,1fr)_auto] overflow-hidden sm:max-w-2xl">
+      <DialogContent className="h-[min(90dvh,48rem)] grid-rows-[auto_minmax(0,1fr)_auto] overflow-hidden sm:max-w-2xl">
         <DialogHeader>
           <DialogTitle>{title ?? t('chooseFolder')}</DialogTitle>
           <DialogDescription className={description === null ? 'sr-only' : undefined}>

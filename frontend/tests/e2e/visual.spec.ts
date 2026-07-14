@@ -25,6 +25,43 @@ test('Dashboard surfaces real attention and primary navigation hides depot and R
   await expectNonBlankScreenshot(page)
 })
 
+test('Directory picker keeps its actions visible on desktop and mobile', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 })
+  await page.route('**/api/inventory/directories**', async (route) => {
+    await route.fulfill({
+      json: {
+        path: 'D:/media/return',
+        parent_path: 'D:/media',
+        entries: Array.from({ length: 24 }, (_, index) => ({
+          name: `directory-${index + 1}`,
+          path: `D:/media/return/directory-${index + 1}`,
+          modified_time: 1777675200,
+          blocked_reason: null,
+        })),
+        error: null,
+      },
+    })
+  })
+
+  await page.goto('/settings')
+  await page.getByRole('button', { name: 'Create Depot' }).click()
+  await page.getByRole('dialog', { name: 'Create Depot' }).getByRole('button', { name: 'Select' }).first().click()
+
+  const picker = page.getByRole('dialog', { name: 'Choose Depot path' })
+  const cancel = picker.getByRole('button', { name: 'Cancel' })
+  const confirm = picker.getByRole('button', { name: 'Use as Depot path' })
+  await expect(cancel).toBeVisible()
+  await expect(confirm).toBeVisible()
+  await expect(cancel).toBeInViewport({ ratio: 1 })
+  await expect(confirm).toBeInViewport({ ratio: 1 })
+
+  await page.setViewportSize({ width: 390, height: 844 })
+  await expect(cancel).toBeVisible()
+  await expect(confirm).toBeVisible()
+  await expect(cancel).toBeInViewport({ ratio: 1 })
+  await expect(confirm).toBeInViewport({ ratio: 1 })
+})
+
 test('Settings manages Origins, Depots, and Watch configuration without synthetic grouping', async ({ page }) => {
   await page.goto('/settings')
 
